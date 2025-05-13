@@ -9,7 +9,11 @@ int main() {
 	for (int i = 0; i < kDepth; i++) {
 		//•
 		for (int j = 0; j < kWidth + i; j++) {
-			printf("*");
+			if (j == kWidth + i - 1) {
+				printf("*");
+			} else {
+				printf("-");
+			}
 		}
 		//‰üs
 		printf("\n");
