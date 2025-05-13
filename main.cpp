@@ -1,19 +1,21 @@
 #include <stdio.h>
 
 int main() {
-	int depth = 5;
-	int width = 5;
-	printf("\n");
 	//ê[Ç≥
-	for (int i = 0; i < depth; i++) {
+	const int kDepth = 5;
+	//ïù
+	const int kWidth = 5;
+	//ê[Ç≥
+	for (int i = 0; i < kDepth; i++) {
 		//ïù
-		for (int j = 0; j < width + i; j++) {
-			if (j < width - (i + 1)) {
+		for (int j = 0; j < kWidth + i; j++) {
+			if (j < kWidth - (i + 1)) {
 				printf("-");
 			} else {
 				printf("*");
 			}
 		}
+		//â¸çs
 		printf("\n");
 	}
 	return 0;
