@@ -19,24 +19,22 @@ void PrintfWaitString(const char* string, float waitTime) {
 }
 
 int main() {
-	//アルファベット
-	const char* alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	//入力する文字
 	char inputChar = '\0';
 	//何文字後を出力したいか
 	int nextNum = 0;
 	//n文字後のアルファベット
 	char nextAlphabet = '\0';
-	//アルファベットを入力されたかどうか
-	bool isInputAlphabet = false;
 	//入力された文字がアルファベットの最後の文字がどうか
 	bool isLastAlphabet = false;
+	//終了
+	bool isFinished = false;
 	//現在のアルファベットの位置
 	int currentAlphabetIndex = 0;
 	//待ち時間
 	float waitTime = 0.5f;
 	//更新
-	while (inputChar != '!') {
+	while (true) {
 		printf("[n文字後の文字を表示するプログラム]\n\n");
 		printf("アルファベットを入力してください。(大文字でも小文字でも可。!で終了)\n");
 
@@ -52,38 +50,36 @@ int main() {
 				inputChar = inputBuffer;
 			}
 
-			//アルファベットかどうかとアルファベットの位置を取得
-			for (int i = 0;i < strlen(alphabet);i++) {
-				if (alphabet[i] == toupper(inputChar)) {
-					isInputAlphabet = true;
-					//現在の位置を取得
-					currentAlphabetIndex = i;
-					break;
-
-				} else if (i >= strlen(alphabet) - 1) {
-					isInputAlphabet = false;
-				}
-			}
-
 			//実行中の文字を表示
 			PrintfWaitString("[実行中]", waitTime);
 
 			//もしアルファベットの最後の文字だったら
-			if (toupper(inputChar) == alphabet[strlen(alphabet) - 1]) {
+			if (toupper(inputChar) == 'Z') {
 				printf("%cは最後の文字です。%c以外のアルファベットを入力してください\n", inputChar, inputChar);
 				isLastAlphabet = true;
 				break;//ループを抜ける
 			}
 
 			//探索結果を表示
-			if (isInputAlphabet) {
+			if (isalpha(inputChar)) {
 				//入力した文字を表示
 				printf("入力した文字:%c\n\n", inputChar);
 				break;//ループを抜ける
-			} else {
+			} else if (inputChar == '!') {
+				//終了
+				isFinished = true;
+				break;//ループを抜ける
+			}
+			else {
 				//入力した文字を表示
 				printf("A-Yもしくはa-zのアルファベットを入力してください\n\n");
 			}
+		}
+
+		//終了していたら
+		if (isFinished) {
+			//終了
+			break;
 		}
 
 		//何文字後を表示するかを取得
@@ -92,14 +88,10 @@ int main() {
 			printf("数字:");
 			//何文字後を表示するかを取得
 			scanf_s("%d", &nextNum);
-			if (islower(inputChar)) {
-				nextAlphabet = tolower(alphabet[currentAlphabetIndex + nextNum]);
-			} else {
-				nextAlphabet = toupper(alphabet[currentAlphabetIndex + nextNum]);
-			}
+			nextAlphabet = inputChar + nextNum;
 
 			//n文字後のアルファベットが範囲外だった場合
-			if (currentAlphabetIndex + nextNum > strlen(alphabet)) {
+			if (!isalpha(nextAlphabet)) {
 				//次のアルファベットが範囲外の場合
 				printf("そのようなアルファベットはありません。数字を入力しなおしてください\n");
 			} else {
@@ -122,8 +114,6 @@ int main() {
 		nextNum = 0;
 		//n文字後のアルファベット
 		nextAlphabet = '\0';
-		//アルファベットを入力されたかどうか
-		isInputAlphabet = false;
 		//現在のアルファベットの位置
 		currentAlphabetIndex = 0;
 		//入力された文字がアルファベットの最後の文字がどうか
