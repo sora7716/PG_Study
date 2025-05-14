@@ -88,7 +88,7 @@ int main() {
 			printf("数字:");
 			//何文字後を表示するかを取得
 			scanf_s("%d", &nextNum);
-			nextAlphabet = inputChar + nextNum;
+			nextAlphabet = static_cast<char>(static_cast<int>(inputChar) + nextNum);
 
 			//n文字後のアルファベットが範囲外だった場合
 			if (!isalpha(nextAlphabet)) {
