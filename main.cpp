@@ -69,8 +69,7 @@ int main() {
 				//終了
 				isFinished = true;
 				break;//ループを抜ける
-			}
-			else {
+			} else {
 				//入力した文字を表示
 				printf("A-Yもしくはa-zのアルファベットを入力してください\n\n");
 			}
@@ -87,7 +86,18 @@ int main() {
 			printf("%cの何文字後を表示するか数字で入力してください\n", inputChar);
 			printf("数字:");
 			//何文字後を表示するかを取得
-			scanf_s("%d", &nextNum);
+			char inputCharNum = '\0';
+			inputCharNum = getchar();
+			//次の数字をchar型で受け取ったのでそれをint型に変換
+			nextNum = static_cast<int>(inputCharNum - '0');
+			while (getchar() != '\n'); // 入力バッファをクリア
+			//数字が正の整数じゃなかった場合
+			if (nextNum < 0 || !isdigit(inputCharNum)) {
+				//数字が正の整数じゃなかった場合
+				printf("正しい数字を入力してください\n\n");
+				nextNum = 0;
+				continue;//次のループへ
+			}
 			nextAlphabet = static_cast<char>(static_cast<int>(inputChar) + nextNum);
 
 			//n文字後のアルファベットが範囲外だった場合
