@@ -1,18 +1,18 @@
 #include "ProcessCount.h"
 
 //初期化
-void ProcessCount::Initialize(){
+void ProcessCount::Initialize() {
 	processCountTable.push_back(&ProcessCount::ProcessCountForIf);
 	processCountTable.push_back(&ProcessCount::ProcessCountForSwitch);
 }
 
 //更新
-void ProcessCount::Update(int index){
+void ProcessCount::Update(int index) {
 	(this->*processCountTable[index])();
 }
 
 //keepExecutionTimesのゲッター
-std::vector<double> ProcessCount::GetKeepExecutionTimes() const{
+std::vector<double> ProcessCount::GetKeepExecutionTimes() const {
 	return keepExecutionTimes;
 }
 
@@ -24,9 +24,8 @@ void ProcessCount::ProcessCountForIf() {
 		//プログラム開始から時間をクロック単位で取得
 		executionTime = clock();
 		if (true) {
-			//何もしない
+			printf("%dループの経過時間 : %lf\n", i, executionTime / CLOCKS_PER_SEC);
 		}
-		printf("%dループの経過時間 : %lf\n", i, executionTime / CLOCKS_PER_SEC);
 	}
 	//最後にif文のかかった時間を出力
 	printf("かかった時間%lf\n", executionTime / CLOCKS_PER_SEC);
@@ -43,10 +42,9 @@ void ProcessCount::ProcessCountForSwitch() {
 		executionTime = clock();
 		switch (true) {
 		case true:
-			//何もしない
+			printf("%dループの経過時間 : %lf\n", i, executionTime / CLOCKS_PER_SEC);
 			break;
 		}
-		printf("%dループの経過時間 : %lf\n", i, executionTime / CLOCKS_PER_SEC);
 	}
 	//最後にswitch文のかかった時間を出力
 	printf("かかった時間%lf\n", executionTime / CLOCKS_PER_SEC);
