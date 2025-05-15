@@ -54,6 +54,7 @@ int main() {
 			printf("%s”N‚©‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢:", *pp_eraNumberName);
 			scanf_s("%d", &inputYear);
 			//Œ³†‚²‚Æ‚É¼—ï‚ğŒvZ
+			//westernCalendar += startEraNumbers[static_cast<int>(inputEraNumber)] + inputYear - 1;//switch•¶‚Å‚â‚Á‚Ä‚¢‚é‚±‚Æ‚ğ1s‚É‚Ü‚Æ‚ß‚½
 			switch (inputEraNumber) {
 				//—ß˜a
 			case kReiwa:
