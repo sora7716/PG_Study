@@ -61,7 +61,7 @@ int main() {
 			}
 
 			//探索結果を表示
-			if (isalpha(inputChar)) {
+			if (isalpha(static_cast<unsigned char>(inputChar))) {
 				//入力した文字を表示
 				printf("入力した文字:%c\n\n", inputChar);
 				break;//ループを抜ける
@@ -70,8 +70,8 @@ int main() {
 				isFinished = true;
 				break;//ループを抜ける
 			} else {
-				//入力した文字を表示
-				printf("A-Yもしくはa-zのアルファベットを入力してください\n\n");
+				//入力した文字がおかしかった場合
+				printf("A-Zもしくはa-zのアルファベットを入力してください\n\n");
 			}
 		}
 
