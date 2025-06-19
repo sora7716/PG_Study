@@ -51,35 +51,37 @@ ChinchirorinProp Chinchirorin(int* dice, const char* roleLists[]) {
 	//‚·‚×‚Ä‚Ì–Ú‚ª“¯‚¶ê‡
 	if (dice[0] == dice[1] && dice[0] == dice[2]) {
 		//–ğ‚Æ”{—¦‚ğŒˆ’è
-		strcpy_s(result.role, roleLists[kZorome]);
+		strcpy_s(result.role, roleLists[static_cast<int>(kZorome)]);
 		result.rate = 3;
 		return result;
 		if (dice[0] == 1) {
 			//–ğ‚Æ”{—¦‚ğŒˆ’è
-			strcpy_s(result.role, roleLists[kPinSoro]);
+			strcpy_s(result.role, roleLists[static_cast<int>(kPinSoro)]);
 			result.rate = 5;
 			return result;
 		}
+		//¡‚ÌæÎ‚Ì–Ú‚ğ•Û‘¶
+		result.diceRoll = dice[0];
 	}
 
 	//2‚Â‚Ì–Ú‚ª“¯‚¶ê‡
 	if (dice[0] == dice[1]) {
 		//–ğ‚Æ”{—¦‚ğŒˆ’è
-		sprintf_s(result.role, roleLists[kMeNoYaku], dice[2]);
+		sprintf_s(result.role, roleLists[static_cast<int>(kMeNoYaku)], dice[2]);
 		result.rate = 1;
 		//¡‚ÌæÎ‚Ì–Ú‚ğ•Û‘¶
 		result.diceRoll = dice[2];
 		return result;
 	} else if (dice[0] == dice[2]) {
 		//–ğ‚Æ”{—¦‚ğŒˆ’è
-		sprintf_s(result.role, roleLists[kMeNoYaku], dice[1]);
+		sprintf_s(result.role, roleLists[static_cast<int>(kMeNoYaku)], dice[1]);
 		result.rate = 1;
 		//¡‚ÌæÎ‚Ì–Ú‚ğ•Û‘¶
 		result.diceRoll = dice[1];
 		return result;
 	} else if (dice[1] == dice[2]) {
 		//–ğ‚Æ”{—¦‚ğŒˆ’è
-		sprintf_s(result.role, roleLists[kMeNoYaku], dice[0]);
+		sprintf_s(result.role, roleLists[static_cast<int>(kMeNoYaku)], dice[0]);
 		result.rate = 1;
 		//¡‚ÌæÎ‚Ì–Ú‚ğ•Û‘¶
 		result.diceRoll = dice[0];
@@ -91,11 +93,11 @@ ChinchirorinProp Chinchirorin(int* dice, const char* roleLists[]) {
 		//4,5,6‚Ì–Ú‚ªo‚½ê‡
 		if (dice[i] == 4 || dice[i] == 5 || dice[i] == 6) {
 			//–ğ‚Æ”{—¦‚ğŒˆ’è
-			strcpy_s(result.role, roleLists[kSiGoRo]);
+			strcpy_s(result.role, roleLists[static_cast<int>(kSiGoRo)]);
 			result.rate = 2;
 		} else {
 			//–ğ‚Æ”{—¦‚ğŒˆ’è
-			strcpy_s(result.role, roleLists[kNone]);
+			strcpy_s(result.role, roleLists[static_cast<int>(kNone)]);
 			result.rate = -1;
 			return result;
 		}
@@ -106,11 +108,11 @@ ChinchirorinProp Chinchirorin(int* dice, const char* roleLists[]) {
 		//1,2,3‚Ì–Ú‚ªo‚½ê‡
 		if (dice[i] == 1 || dice[i] == 2 || dice[i] == 3) {
 			//–ğ‚Æ”{—¦‚ğŒˆ’è
-			strcpy_s(result.role, roleLists[kHiFuMi]);
+			strcpy_s(result.role, roleLists[static_cast<int>(kHiFuMi)]);
 			result.rate = -2;
 		} else {
 			//–ğ‚Æ”{—¦‚ğŒˆ’è
-			strcpy_s(result.role, roleLists[kNone]);
+			strcpy_s(result.role, roleLists[static_cast<int>(kNone)]);
 			result.rate = -1;
 			return result;
 		}
