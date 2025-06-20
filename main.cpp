@@ -180,7 +180,7 @@ int main() {
 			if (chinchirorins[static_cast<int>(kParent)].diceRoll > chinchirorins[static_cast<int>(kChild)].diceRoll) {
 				printf("ワシの勝ちだ。%dペリカ払ってもらおう\n", bet * abs(chinchirorins[static_cast<int>(kParent)].rate));
 			} else if (chinchirorins[static_cast<int>(kParent)].diceRoll == chinchirorins[static_cast<int>(kChild)].diceRoll) {
-				printf("今回は引き分けだ。%dペリカ払い戻そう\n", bet);
+				printf("今回は引き分けだ。今回の報酬話だ。");
 			} else {
 				printf("君の勝ちだ。%dペリカ払い戻そう\n", bet * abs(chinchirorins[static_cast<int>(kChild)].rate));
 			}
