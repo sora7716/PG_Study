@@ -138,11 +138,17 @@ Cell EnemyCell(const Matrix3x3& grid) {
 /// </summary>
 /// <param name="grid">グリッド</param>
 /// <param name="gridCell">グリッドのマス</param>
-/// <param name="row">行</param>
-/// <param name="col">列</param>
 /// <returns>ラインチェック</returns>
-bool IsLineCheck(const Matrix3x3& grid, GridCell gridCell, int row, int col) {
-	return grid.m[col][row] == gridCell && grid.m[col][row] == gridCell && grid.m[col][row] == gridCell;
+bool IsLineCheck(const Matrix3x3& grid, GridCell gridCell) {
+	return
+		grid.m[0][0] == gridCell && grid.m[0][1] == gridCell && grid.m[0][2] == gridCell ||
+		grid.m[1][0] == gridCell && grid.m[1][1] == gridCell && grid.m[1][2] == gridCell ||
+		grid.m[2][0] == gridCell && grid.m[2][1] == gridCell && grid.m[2][2] == gridCell ||
+		grid.m[0][0] == gridCell && grid.m[1][0] == gridCell && grid.m[2][0] == gridCell ||
+		grid.m[0][1] == gridCell && grid.m[1][1] == gridCell && grid.m[2][1] == gridCell ||
+		grid.m[0][2] == gridCell && grid.m[1][2] == gridCell && grid.m[2][2] == gridCell ||
+		grid.m[0][0] == gridCell && grid.m[1][1] == gridCell && grid.m[2][2] == gridCell ||
+		grid.m[2][2] == gridCell && grid.m[1][1] == gridCell && grid.m[0][0] == gridCell;
 }
 
 /// <summary>
@@ -151,31 +157,12 @@ bool IsLineCheck(const Matrix3x3& grid, GridCell gridCell, int row, int col) {
 /// <param name="grid">グリッド</param>
 /// <returns>勝者</returns>
 GridCell WinnerCheker(const Matrix3x3& grid) {
-	//結果
-	GridCell result = kEmpty;
-	/*if (
-		grid.m[0][0] == kCircle && grid.m[0][1] == kCircle && grid.m[0][2] == kCircle ||
-		grid.m[1][0] == kCircle && grid.m[1][1] == kCircle && grid.m[1][2] == kCircle ||
-		grid.m[2][0] == kCircle && grid.m[2][1] == kCircle && grid.m[2][2] == kCircle ||
-		grid.m[0][0] == kCircle && grid.m[1][0] == kCircle && grid.m[2][0] == kCircle ||
-		grid.m[0][1] == kCircle && grid.m[1][1] == kCircle && grid.m[2][1] == kCircle ||
-		grid.m[0][2] == kCircle && grid.m[1][2] == kCircle && grid.m[2][2] == kCircle ||
-		grid.m[0][0] == kCircle && grid.m[1][1] == kCircle && grid.m[2][2] == kCircle ||
-		grid.m[2][2] == kCircle && grid.m[1][1] == kCircle && grid.m[0][0] == kCircle
-		) {
-		result = kCircle;
-	}*/
-
-
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			if (IsLineCheck(grid, kCircle, i, j) ||
-				IsLineCheck(grid, kCircle, j, i)) {
-				result = kCircle;
-			}
-		}
+	if (IsLineCheck(grid, kCircle)) {
+		return kCircle;//Oの勝利
+	} else if (IsLineCheck(grid, kCross)) {
+		return kCross;//Xの勝利
 	}
-	return result;
+	return kEmpty;//勝者なし
 }
 int main() {
 	//グリッドの初期化
