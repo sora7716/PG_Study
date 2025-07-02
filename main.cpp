@@ -140,15 +140,21 @@ Cell EnemyCell(const Matrix3x3& grid) {
 /// <param name="gridCell">グリッドのマス</param>
 /// <returns>ラインチェック</returns>
 bool IsLineCheck(const Matrix3x3& grid, GridCell gridCell) {
-	return
-		grid.m[0][0] == gridCell && grid.m[0][1] == gridCell && grid.m[0][2] == gridCell ||
-		grid.m[1][0] == gridCell && grid.m[1][1] == gridCell && grid.m[1][2] == gridCell ||
-		grid.m[2][0] == gridCell && grid.m[2][1] == gridCell && grid.m[2][2] == gridCell ||
-		grid.m[0][0] == gridCell && grid.m[1][0] == gridCell && grid.m[2][0] == gridCell ||
-		grid.m[0][1] == gridCell && grid.m[1][1] == gridCell && grid.m[2][1] == gridCell ||
-		grid.m[0][2] == gridCell && grid.m[1][2] == gridCell && grid.m[2][2] == gridCell ||
-		grid.m[0][0] == gridCell && grid.m[1][1] == gridCell && grid.m[2][2] == gridCell ||
-		grid.m[2][2] == gridCell && grid.m[1][1] == gridCell && grid.m[0][0] == gridCell;
+	for (int i = 0; i < 3; i++) {
+		if (grid.m[i][0] == gridCell && grid.m[i][1] == gridCell && grid.m[i][2] == gridCell) {
+			return true;
+		}
+		if (grid.m[0][i] == gridCell && grid.m[1][i] == gridCell && grid.m[2][i] == gridCell) {
+			return true;
+		}
+	}
+	if (grid.m[0][0] == gridCell && grid.m[1][1] == gridCell && grid.m[2][2] == gridCell) {
+		return true;
+	}
+	if (grid.m[2][2] == gridCell && grid.m[1][1] == gridCell && grid.m[0][0] == gridCell) {
+		return true;
+	}
+	return false;
 }
 
 /// <summary>
