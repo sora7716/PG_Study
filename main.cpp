@@ -119,18 +119,8 @@ Cell EnemyCell(const Matrix3x3& grid) {
 	if (IsGridSpace(grid, result)) {
 		return result;
 	}
-	//空白があるかどうか
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			if (grid.m[i][j] == kEmpty) {
-				result = {};
-				break;
-			} else {
-				result = { -1,-1 };
-			}
-		}
-	}
-	return (result.row < 0) ? result : EnemyCell(grid);
+
+	return EnemyCell(grid);
 }
 
 /// <summary>
@@ -151,7 +141,7 @@ bool IsLineCheck(const Matrix3x3& grid, GridCell gridCell) {
 	if (grid.m[0][0] == gridCell && grid.m[1][1] == gridCell && grid.m[2][2] == gridCell) {
 		return true;
 	}
-	if (grid.m[2][2] == gridCell && grid.m[1][1] == gridCell && grid.m[0][0] == gridCell) {
+	if (grid.m[0][2] == gridCell && grid.m[1][1] == gridCell && grid.m[2][1] == gridCell) {
 		return true;
 	}
 	return false;
@@ -170,6 +160,61 @@ GridCell WinnerCheker(const Matrix3x3& grid) {
 	}
 	return kEmpty;//勝者なし
 }
+
+/// <summary>
+/// 数字の入力
+/// </summary>
+/// <param name="label">ラベル</param>
+/// <returns></returns>
+int InputNumber(const char* label) {
+	char inputNum = '\0';
+	//行の入力
+	while (true) {
+		//行を選択
+		printf("%s（1～3）->", label);
+		inputNum = getchar();
+		//改行を削除
+		DeleteReturn(&inputNum);
+		//有効な範囲かどうか
+		if (!IsValidInput(inputNum)) {
+			printf("有効な値を入力してください\n");
+			continue;
+		} else {
+			break;
+		}
+	}
+	//値を整数にする
+	return atoi(&inputNum);
+}
+
+/// <summary>
+/// プレイヤーの入力
+/// </summary>
+/// <param name="name">プレイヤーの名前</param>
+/// <returns>行列の番号</returns>
+Cell InputPlayer(const char* name) {
+	Cell result = {};
+	printf("%s\n", name);
+	result.row = InputNumber("行");
+	result.col = InputNumber("列");
+	return result;
+}
+
+/// <summary>
+/// 空白をチェック
+/// </summary>
+/// <param name="grid">グリッド</param>
+/// <returns>空白かどうかのフラグ</returns>
+bool IsBlank(const Matrix3x3& grid) {
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (grid.m[i][j] == kEmpty) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
 int main() {
 	//グリッドの初期化
 	Matrix3x3 grid = {};
@@ -185,46 +230,17 @@ int main() {
 	//ゲーム開始
 	printf("〇×ゲーム スタート！\n");
 	printf("=========================\n");
-	printf("あなた\n");
 	while (true) {
-		//行の入力
-		while (true) {
-			//行を選択
-			printf("行（1～3）->");
-			inputNum = getchar();
-			//改行を削除
-			DeleteReturn(&inputNum);
-			//行の値を整数にする
-			cell.row = atoi(&inputNum);
-			//有効な範囲かどうか
-			if (!IsValidInput(inputNum)) {
-				printf("有効な値を入力してください\n");
-				continue;
-			} else {
-				break;
-			}
+		//空白がなくなったら
+		if (IsBlank(grid)) {
+			break;
 		}
 
-		//列の入力
-		while (true) {
-			//列を選択
-			printf("列（1～3）->");
-			inputNum = getchar();
-			//改行を削除
-			DeleteReturn(&inputNum);
-			//行の値を整数にする
-			cell.col = atoi(&inputNum);
-			//有効な範囲かどうか
-			if (!IsValidInput(inputNum)) {
-				printf("有効な値を入力してください\n");
-				continue;
-			} else {
-				break;
-			}
-		}
+		//プレイヤー1の入力
+		cell = InputPlayer("あなた");
 
 		//空白かどうか
-		if (IsGridSpace(grid, cell)) {
+		if (IsGridSpace(grid, cell) && (cell.row > 0 && cell.col > 0)) {
 			//空白だった場合選択したセルに〇をセット
 			grid.m[cell.col - 1][cell.row - 1] = kCircle;
 			//グリッドの出力
@@ -243,11 +259,6 @@ int main() {
 		//敵のマスを選択
 		cell = EnemyCell(grid);
 
-		//0より小さい値あった場合は終了する
-		if (cell.row < 0) {
-			break;
-		}
-
 		printf("相手(コンピュータ)\n");
 		//敵の入力
 		grid.m[cell.col - 1][cell.row - 1] = kCross;
@@ -264,10 +275,22 @@ int main() {
 		if (gridCell != kEmpty) {
 			if (gridCell == kCircle) {
 				printf("あなたの勝利\n");
-				break;
 			} else {
 				printf("相手の勝利\n");
+			}
+			//ゲームを終了するかどうか
+			printf("ゲームを続けますか？(0:終了,それ以外の場合ループ):");
+			char isFinish = '\0';
+			isFinish = getchar();
+			DeleteReturn(&isFinish);
+			if (isFinish == 0) {
 				break;
+			} else {
+				//グリッドをリセット
+				grid = GridReset();
+				//ゲーム開始
+				printf("〇×ゲーム スタート！\n");
+				printf("=========================\n");
 			}
 		}
 	}
