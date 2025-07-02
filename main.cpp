@@ -257,7 +257,10 @@ int main() {
 		printf("%d行%d列にXをかいた！\n", cell.row, cell.col);
 		printf("-------------------------\n");
 
+		//勝利者のチェック
 		GridCell gridCell = WinnerCheker(grid);
+
+		//勝利者がいるかどうか
 		if (gridCell != kEmpty) {
 			if (gridCell == kCircle) {
 				printf("あなたの勝利\n");
