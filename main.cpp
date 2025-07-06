@@ -31,9 +31,7 @@ int main() {
 		int temp = lists[i]; //挿入する値を一時保存
 		int index = i-1;
 		while (index >= 0 && lists[index] > temp) {
-			int listRight = lists[index + 1]; //右側の値を一時保存
 			lists[index + 1] = lists[index];//右に移動
-			lists[index] = listRight;//右にあったのを左に移動
 			index--;
 		}
 		lists[index + 1] = temp;
