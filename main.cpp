@@ -26,15 +26,17 @@ int main() {
 	printf("ソート前のリスト:");
 	ListPrint(lists);
 
-	//バブルソート開始
+	//選択ソート開始
 	for (int i = 0; i < kListSize; i++) {
-		for (int j = kListSize - 1; j > i; j--) {
-			if (lists[j - 1] > lists[j]) {
-				int temp = lists[j - 1];
-				lists[j - 1] = lists[j];
-				lists[j] = temp;
+		int index = i;//検索インデックスiに設定
+		for (int j = i; j < kListSize; j++) {
+			if (lists[j] < lists[index]) {
+				index = j;//検索インデックスをjに設定
 			}
 		}
+		int temp = lists[index];
+		lists[index] = lists[i];
+		lists[i] = temp;
 	}
 
 	//ソート後のリストを出力
