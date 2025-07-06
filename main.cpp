@@ -26,17 +26,17 @@ int main() {
 	printf("ソート前のリスト:");
 	ListPrint(lists);
 
-	//選択ソート開始
+	//挿入ソート開始
 	for (int i = 0; i < kListSize; i++) {
-		int index = i;//検索インデックスiに設定
-		for (int j = i; j < kListSize; j++) {
-			if (lists[j] < lists[index]) {
-				index = j;//検索インデックスをjに設定
-			}
+		int temp = lists[i]; //挿入する値を一時保存
+		int index = i-1;
+		while (index >= 0 && lists[index] > temp) {
+			int listRight = lists[index + 1]; //右側の値を一時保存
+			lists[index + 1] = lists[index];//右に移動
+			lists[index] = listRight;//右にあったのを左に移動
+			index--;
 		}
-		int temp = lists[index];
-		lists[index] = lists[i];
-		lists[i] = temp;
+		lists[index + 1] = temp;
 	}
 
 	//ソート後のリストを出力
