@@ -25,7 +25,7 @@ Digit ConvertDigits(int inputNum, int n) {
 			//•¶š—ñ‚É•ÏŠ·
 			result.c_str[i] = result.nums[i] + '0';
 		} else {
-			result.c_str[i] = (result.nums[i] % 10) + 'A';
+			result.c_str[i] = (result.nums[i] - 10) + 'A';
 		}
 		inputNum /= n; //Ÿ‚ÌŒ…‚Öi‚Ş‚½‚ß‚É2‚ÅŠ„‚é
 		//‚Ç‚ê‚­‚ç‚¢ŒvZ‚µ‚½‚©
