@@ -13,6 +13,54 @@ void ListPrint(int* lists) {
 	printf("\n");
 }
 
+/// <summary>
+/// マージソート
+/// </summary>
+/// <param name="lists">リスト</param>
+/// <param name="left">左端</param>
+/// <param name="right">右端</param>
+void MargeSort(int* lists, int left, int right) {
+	int temp[kListSize] = {}; //一時保存用の配列
+
+	if (left < right) {
+		//真ん中を求める
+		int mid = (left + right) / 2;
+
+		//左側をソート
+		MargeSort(lists, left, mid); 
+
+		//右側をソート
+		MargeSort(lists, mid + 1, right); 
+
+		//左側の値を一時保存
+		for (int i = mid; i >= left; i--) {
+			temp[i] = lists[i]; 
+		}
+
+		//右側の値を一時保存
+		for (int i = mid + 1; i <= right; i++) {
+			temp[right - (i - (mid + 1))] = lists[i];
+		}
+
+		//左側のインデックス	
+		int leftIndex = left; 
+		//右側のインデックス
+		int rightIndex = right;
+
+		for (int i = left; i <= right; i++) {
+			if (temp[leftIndex] < temp[rightIndex]) {
+				//左側の値をリストに代入
+				lists[i] = temp[leftIndex];
+				leftIndex++;
+			} else {
+				//右側の値をリストに代入
+				lists[i] = temp[rightIndex];
+				rightIndex--;
+			}
+		}
+	}
+}
+
 int main() {
 	//ランド関数の初期化
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -26,16 +74,8 @@ int main() {
 	printf("ソート前のリスト:");
 	ListPrint(lists);
 
-	//挿入ソート開始
-	for (int i = 0; i < kListSize; i++) {
-		int temp = lists[i]; //挿入する値を一時保存
-		int index = i - 1;
-		while (index >= 0 && lists[index] > temp) {
-			lists[index + 1] = lists[index];//右に移動
-			index--;
-		}
-		lists[index + 1] = temp;
-	}
+	//マージソートを実行
+	MargeSort(lists, 0, kListSize - 1); 
 
 	//ソート後のリストを出力
 	printf("ソート後のリスト:");
