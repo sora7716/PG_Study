@@ -50,8 +50,8 @@ void PrintDigits(const Digit& digits) {
 /// 入力関数のバッファをクリアする
 /// </summary>
 void ClearInputBuffer() {
-	int ch;
-	while ((ch = getchar()) != '\n' && ch != EOF) {}
+	int inputBuffer;
+	while ((inputBuffer = getchar()) != '\n') {}
 }
 
 int main() {
