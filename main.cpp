@@ -13,6 +13,25 @@ void ListPrint(int* lists) {
 	printf("\n");
 }
 
+/// <summary>
+/// 選択ソート
+/// </summary>
+/// <param name="lists">リスト</param>
+void SelectionSort(int* lists) {
+	//選択ソート開始
+	for (int i = 0; i < kListSize; i++) {
+		int index = i;//検索インデックスiに設定
+		for (int j = i; j < kListSize; j++) {
+			if (lists[j] < lists[index]) {
+				index = j;//検索インデックスをjに設定
+			}
+		}
+		int temp = lists[index];
+		lists[index] = lists[i];
+		lists[i] = temp;
+	}
+}
+
 int main() {
 	//ランド関数の初期化
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -26,18 +45,8 @@ int main() {
 	printf("ソート前のリスト:");
 	ListPrint(lists);
 
-	//選択ソート開始
-	for (int i = 0; i < kListSize; i++) {
-		int index = i;//検索インデックスiに設定
-		for (int j = i; j < kListSize; j++) {
-			if (lists[j] < lists[index]) {
-				index = j;//検索インデックスをjに設定
-			}
-		}
-		int temp = lists[index];
-		lists[index] = lists[i];
-		lists[i] = temp;
-	}
+	//選択ソートを実行
+	SelectionSort(lists);
 
 	//ソート後のリストを出力
 	printf("ソート後のリスト:");
