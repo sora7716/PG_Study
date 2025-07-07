@@ -13,6 +13,23 @@ void ListPrint(int* lists) {
 	printf("\n");
 }
 
+/// <summary>
+/// 挿入ソート
+/// </summary>
+/// <param name="lists">リスト</param>
+void InsertionSort(int* lists) {
+	//挿入ソート開始
+	for (int i = 0; i < kListSize; i++) {
+		int temp = lists[i]; //挿入する値を一時保存
+		int index = i - 1;
+		while (index >= 0 && lists[index] > temp) {
+			lists[index + 1] = lists[index];//右に移動
+			index--;
+		}
+		lists[index + 1] = temp;
+	}
+}
+
 int main() {
 	//ランド関数の初期化
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -26,16 +43,8 @@ int main() {
 	printf("ソート前のリスト:");
 	ListPrint(lists);
 
-	//挿入ソート開始
-	for (int i = 0; i < kListSize; i++) {
-		int temp = lists[i]; //挿入する値を一時保存
-		int index = i - 1;
-		while (index >= 0 && lists[index] > temp) {
-			lists[index + 1] = lists[index];//右に移動
-			index--;
-		}
-		lists[index + 1] = temp;
-	}
+	//挿入ソートの実行
+	InsertionSort(lists);
 
 	//ソート後のリストを出力
 	printf("ソート後のリスト:");
