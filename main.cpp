@@ -13,6 +13,23 @@ void ListPrint(int* lists) {
 	printf("\n");
 }
 
+/// <summary>
+/// バブルソート
+/// </summary>
+/// <param name="lists">リスト</param>
+void BubbleSort(int *lists) {
+	//バブルソート開始
+	for (int i = 0; i < kListSize; i++) {
+		for (int j = kListSize - 1; j > i; j--) {
+			if (lists[j - 1] > lists[j]) {
+				int temp = lists[j - 1];
+				lists[j - 1] = lists[j];
+				lists[j] = temp;
+			}
+		}
+	}
+}
+
 int main() {
 	//ランド関数の初期化
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -26,16 +43,8 @@ int main() {
 	printf("ソート前のリスト:");
 	ListPrint(lists);
 
-	//バブルソート開始
-	for (int i = 0; i < kListSize; i++) {
-		for (int j = kListSize - 1; j > i; j--) {
-			if (lists[j - 1] > lists[j]) {
-				int temp = lists[j - 1];
-				lists[j - 1] = lists[j];
-				lists[j] = temp;
-			}
-		}
-	}
+	//バブルソートを実行
+	BubbleSort(lists);
 
 	//ソート後のリストを出力
 	printf("ソート後のリスト:");
