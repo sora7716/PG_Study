@@ -29,7 +29,7 @@ int main() {
 	//挿入ソート開始
 	for (int i = 0; i < kListSize; i++) {
 		int temp = lists[i]; //挿入する値を一時保存
-		int index = i-1;
+		int index = i - 1;
 		while (index >= 0 && lists[index] > temp) {
 			lists[index + 1] = lists[index];//右に移動
 			index--;
