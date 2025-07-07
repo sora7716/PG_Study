@@ -25,7 +25,7 @@ void ShellSort(int* lists) {
 		//検索範囲分の挿入ソートを実行
 		for (int i = range; i < kListSize; i++) {
 			int temp = lists[i];
-			int index = i - 1;
+			int index = i;
 			while (index >= range && lists[index - range] > temp) {
 				lists[index] = lists[index - range];
 				index -= range;
