@@ -19,7 +19,7 @@ void ListPrint(int* lists) {
 /// <param name="lists">リスト</param>
 void ShellSort(int* lists) {
 	//検索範囲
-	int range = kListSize;
+	int range = kListSize / 2;
 
 	while (range > 0) {
 		//検索範囲分の挿入ソートを実行
