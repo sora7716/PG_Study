@@ -80,7 +80,6 @@ void DeleteReturn(char* input) {
 	while ((inputBuffer = getchar()) != '\n') {
 		input = &inputBuffer;
 	}
-
 }
 
 /// <summary>
