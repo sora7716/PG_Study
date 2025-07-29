@@ -205,7 +205,7 @@ Cell InputPlayer(const char* name) {
 /// </summary>
 /// <param name="grid">グリッド</param>
 /// <returns>空白かどうかのフラグ</returns>
-bool IsBlank(const Matrix3x3& grid) {
+bool IsCheckBlank(const Matrix3x3& grid) {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (grid.m[i][j] == kEmpty) {
@@ -232,7 +232,7 @@ int main() {
 	printf("=========================\n");
 	while (true) {
 		//空白がなくなったら
-		if (IsBlank(grid)) {
+		if (!IsCheckBlank(grid)) {
 			break;
 		}
 
