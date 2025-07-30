@@ -109,21 +109,6 @@ bool IsGridSpace(const Matrix3x3& grid, const Cell& cell) {
 }
 
 /// <summary>
-/// 敵の選択するマス
-/// </summary>
-/// <param name="grid">グリッド</param>
-/// <returns>敵の行列の添え字</returns>
-Cell EnemyCell(const Matrix3x3& grid) {
-	//結果
-	Cell result = { rand() % 3 + 1,rand() % 3 + 1 };
-	if (IsGridSpace(grid, result)) {
-		return result;
-	}
-
-	return EnemyCell(grid);
-}
-
-/// <summary>
 /// ラインのチェック
 /// </summary>
 /// <param name="grid">グリッド</param>
@@ -215,6 +200,25 @@ bool IsCheckBlank(const Matrix3x3& grid) {
 	}
 	return false;
 }
+
+/// <summary>
+/// 敵の選択するマス
+/// </summary>
+/// <param name="grid">グリッド</param>
+/// <returns>敵の行列の添え字</returns>
+Cell EnemyCell(const Matrix3x3& grid) {
+	if (!IsCheckBlank(grid)) {
+		return{ -1,-1 }; //空白がなかった場合は終了
+	}
+	//結果
+	Cell result = { rand() % 3 + 1,rand() % 3 + 1 };
+	if (IsGridSpace(grid, result)) {
+		return result;
+	}
+
+	return EnemyCell(grid);
+}
+
 int main() {
 	//グリッドの初期化
 	Matrix3x3 grid = {};
@@ -259,14 +263,17 @@ int main() {
 		//敵のマスを選択
 		cell = EnemyCell(grid);
 
-		printf("相手(コンピュータ)\n");
-		//敵の入力
-		grid.m[cell.col - 1][cell.row - 1] = kCross;
-		//グリッドの出力
-		PrintGrid(grid);
-		//何行目に書いたか
-		printf("%d行%d列にXをかいた！\n", cell.row, cell.col);
-		printf("-------------------------\n");
+		//cellの中身が0よりデカかったらだったら
+		if (cell.col > 0) {
+			printf("相手(コンピュータ)\n");
+			//敵の入力
+			grid.m[cell.col - 1][cell.row - 1] = kCross;
+			//グリッドの出力
+			PrintGrid(grid);
+			//何行目に書いたか
+			printf("%d行%d列にXをかいた！\n", cell.row, cell.col);
+			printf("-------------------------\n");
+		}
 
 		//勝利者のチェック
 		GridCell gridCell = WinnerCheker(grid);
