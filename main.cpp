@@ -3,7 +3,7 @@
 //状態異常のデータ
 struct StatusEffectData {
 	int bitMask;
-	const char* name;
+	char name[1024];
 };
 
 //状態異常の数
