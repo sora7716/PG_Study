@@ -3,13 +3,14 @@
 //状態異常のデータ
 struct StatusEffectData {
 	int bitMask;
-	char name[1024];
+	char label[1024];
 };
 
 //状態異常の数
 const int kStatusEffectCount = 4;
 
 int main() {
+
 	//プレイヤーのステータス
 	int playerStatus = 5;
 
@@ -27,9 +28,11 @@ int main() {
 	//状態以上の表示
 	for (int i = 0; i < kStatusEffectCount; i++) {
 		if (playerStatus & statusEffectsData[i].bitMask) {
-			printf("%s\n", statusEffectsData[i].name);
+			printf("%s\n", statusEffectsData[i].label);
 		}
 	}
 
+
+	
 	return 0;
 }
