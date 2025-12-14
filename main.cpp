@@ -1,38 +1,66 @@
 ﻿#include <stdio.h>
+#include <stdlib.h>
 
-//状態異常のデータ
-struct StatusEffectData {
-	int bitMask;
-	char label[1024];
+//セル
+struct Cell {
+	int val;
+	Cell* next;
 };
 
-//状態異常の数
-const int kStatusEffectCount = 4;
+//リスト
+struct  List {
+	Cell head;
+	/// <summary>
+	/// 値を末尾に追加
+	/// </summary>
+	/// <param name="endCell">末尾</param>
+	/// <param name="val">値</param>
+	void Create(Cell* endCell, int val) {
+		//Cellのサイズ分メモリを確保
+		Cell* newCell = static_cast<Cell*>(malloc(sizeof(Cell)));
+
+		//メモリ確保失敗時は終了
+		if (newCell == nullptr) {
+			return;
+		}
+
+		//新しいセルに値を設定
+		newCell->val = val;
+		newCell->next = nullptr;//次のセルは無し
+
+		//末尾まで移動
+		while (endCell->next != nullptr) {
+			endCell = endCell->next;
+		}
+
+		//末尾に先ほど作ったセルを挿入
+		endCell->next = newCell;
+	}
+};
+
+
+
+/// <summary>
+/// リストをすべて表示
+/// </summary>
+/// <param name="endCell">末尾</param>
+void Index(List list) {
+	//リストから先頭セルをしゅおｔｋ
+	Cell* endCell = &list.head;
+	//先頭の値を表示
+	while (endCell->next != nullptr) {
+		endCell = endCell->next;
+		printf("%d,", endCell->val);
+	}
+}
 
 int main() {
-
-	//プレイヤーのステータス
-	int playerStatus = 5;
-
-	//状態異常のデータ
-	StatusEffectData statusEffectsData[kStatusEffectCount] = {
-		{ 1 << 0, "戦闘不能状態" },
-		{ 1 << 1, "毒状態" },
-		{ 1 << 2, "石化状態" },
-		{ 1 << 3, "眠り状態" }
-	};
-
-	//プレイヤーのステートの表示
-	printf("state = %d\n", playerStatus);
-
-	//状態以上の表示
-	for (int i = 0; i < kStatusEffectCount; i++) {
-		if (playerStatus & statusEffectsData[i].bitMask) {
-			printf("%s\n", statusEffectsData[i].label);
-		}
+	List list;
+	list.head.next = nullptr;
+	for (int i = 0; i < 4; i++) {
+		list.Create(&list.head, i * 2);
 	}
 
-
-	
+	Index(list);
 	return 0;
 }
